@@ -17,7 +17,7 @@ const Header = () => {
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <a href="#" className="flex items-center gap-2 text-xl font-bold text-foreground">
           <Wrench className="h-6 w-6 text-primary" />
-          <span>TechFix</span>
+          <span>Kopsell Assistência</span>
         </a>
 
         <nav className="hidden items-center gap-8 md:flex">

@@ -60,7 +60,7 @@ export const menuItems: MenuItem[] = [
     description: "Pão, salsicha, purê, vinagrete, batata palha e ketchup",
     price: 14.90,
     category: "cachorro-quente",
-    image: "https://images.unsplash.com/photo-1612392062126-32b3b8a4114e?w=400&h=300&fit=crop",
+    image: "https://images.unsplash.com/photo-1619740455993-9e612b1af08a?w=400&h=300&fit=crop",
   },
   {
     id: "dog-2",

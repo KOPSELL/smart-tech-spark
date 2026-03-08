@@ -2,10 +2,13 @@ import { useState, useMemo } from "react";
 import MenuHeader from "@/components/menu/MenuHeader";
 import CategoryFilter from "@/components/menu/CategoryFilter";
 import FeaturedSection from "@/components/menu/FeaturedSection";
+import PromoSection from "@/components/menu/PromoSection";
+import FloatingBurgers from "@/components/menu/FloatingBurgers";
 import ProductCard from "@/components/menu/ProductCard";
 import CartBar from "@/components/menu/CartBar";
 import CheckoutModal from "@/components/menu/CheckoutModal";
 import { menuItems } from "@/data/menuData";
+import { dailyPromos } from "@/data/promoData";
 import { useCart } from "@/hooks/useCart";
 
 const Index = () => {
@@ -28,26 +31,33 @@ const Index = () => {
   }, [activeCategory, search]);
 
   return (
-    <div className="min-h-screen bg-muted pb-24">
-      <MenuHeader search={search} onSearchChange={setSearch} />
-      <CategoryFilter active={activeCategory} onSelect={setActiveCategory} />
+    <div className="relative min-h-screen bg-muted pb-24">
+      <FloatingBurgers />
 
-      {!search && !activeCategory && (
-        <FeaturedSection items={featured} onAdd={addItem} />
-      )}
+      <div className="relative z-10">
+        <MenuHeader search={search} onSearchChange={setSearch} />
+        <CategoryFilter active={activeCategory} onSelect={setActiveCategory} />
 
-      <main className="container mx-auto px-4 py-4">
-        <div className="grid gap-3 sm:grid-cols-2">
-          {filtered.map((item) => (
-            <ProductCard key={item.id} item={item} onAdd={addItem} />
-          ))}
-        </div>
-        {filtered.length === 0 && (
-          <p className="text-center text-muted-foreground py-12">
-            Nenhum item encontrado 😕
-          </p>
+        {!search && !activeCategory && (
+          <>
+            <PromoSection promos={dailyPromos} onAdd={addItem} />
+            <FeaturedSection items={featured} onAdd={addItem} />
+          </>
         )}
-      </main>
+
+        <main className="container mx-auto px-4 py-4">
+          <div className="grid gap-3 sm:grid-cols-2">
+            {filtered.map((item) => (
+              <ProductCard key={item.id} item={item} onAdd={addItem} />
+            ))}
+          </div>
+          {filtered.length === 0 && (
+            <p className="text-center text-muted-foreground py-12">
+              Nenhum item encontrado 😕
+            </p>
+          )}
+        </main>
+      </div>
 
       <CartBar
         totalItems={totalItems}

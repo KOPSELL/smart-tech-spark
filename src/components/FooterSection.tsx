@@ -7,7 +7,7 @@ const FooterSection = () => {
         <div>
           <div className="mb-4 flex items-center gap-2 text-xl font-bold">
             <Wrench className="h-5 w-5" />
-            TechFix
+            Kopsell Assistência
           </div>
           <p className="text-sm opacity-80">
             Assistência técnica multimarcas com profissionais qualificados e
@@ -30,7 +30,7 @@ const FooterSection = () => {
               <Phone className="h-4 w-4" /> (00) 0000-0000
             </li>
             <li className="flex items-center gap-2">
-              <Mail className="h-4 w-4" /> contato@techfix.com.br
+              <Mail className="h-4 w-4" /> contato@kopsell.com.br
             </li>
             <li className="flex items-center gap-2">
               <Clock className="h-4 w-4" /> Seg–Sex: 9h às 18h | Sáb: 9h às 13h
@@ -46,7 +46,7 @@ const FooterSection = () => {
           </p>
           <div className="overflow-hidden rounded-lg">
             <iframe
-              title="Localização TechFix"
+              title="Localização Kopsell Assistência"
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.197538776898!2d-46.65499398447553!3d-23.561684384682!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjPCsDMzJzQyLjEiUyA0NsKwMzknMTEuMCJX!5e0!3m2!1spt-BR!2sbr!4v1710000000000"
               width="100%"
               height="150"
@@ -60,7 +60,7 @@ const FooterSection = () => {
       </div>
 
       <div className="border-t border-accent-foreground/10 py-4 text-center text-xs opacity-60">
-        © 2026 TechFix – Assistência Técnica Multimarcas. Todos os direitos reservados.
+        © 2026 Kopsell Assistência – Assistência Técnica Multimarcas. Todos os direitos reservados.
       </div>
     </footer>
   );

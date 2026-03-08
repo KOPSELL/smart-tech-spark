@@ -42,7 +42,7 @@ const TestimonialsSection = () => {
             O que nossos clientes dizem
           </h2>
           <p className="mt-3 text-muted-foreground">
-            Avaliações reais de quem confiou na TechFix
+            Avaliações reais de quem confiou na Kopsell
           </p>
         </div>
 

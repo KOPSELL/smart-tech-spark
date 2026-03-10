@@ -59,7 +59,7 @@ const CheckoutModal = ({
       `📋 *Itens:*\n${itemsText}\n\n` +
       `💰 *Total: R$ ${finalTotal.toFixed(2).replace(".", ",")}*`;
 
-    const url = `https://wa.me/message/ZH2VLQX64DSQO1?text=${encodeURIComponent(message)}`;
+    const url = `https://wa.me/5554991491157?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank", "noopener,noreferrer");
 
     onClear();

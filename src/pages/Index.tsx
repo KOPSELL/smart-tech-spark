@@ -8,7 +8,7 @@ import ProductCard from "@/components/menu/ProductCard";
 import CartBar from "@/components/menu/CartBar";
 import CheckoutModal from "@/components/menu/CheckoutModal";
 import { menuItems } from "@/data/menuData";
-import { dailyPromos } from "@/data/promoData";
+import { getDailyPromos } from "@/data/promoData";
 import { useCart } from "@/hooks/useCart";
 
 const Index = () => {
@@ -18,6 +18,7 @@ const Index = () => {
   const { items, addItem, removeItem, clearCart, totalItems, totalPrice } = useCart();
 
   const featured = useMemo(() => menuItems.filter((i) => i.featured), []);
+  const dailyPromos = useMemo(() => getDailyPromos(), []);
 
   const filtered = useMemo(() => {
     return menuItems.filter((item) => {

@@ -15,7 +15,7 @@ interface CheckoutModalProps {
   onClear: () => void;
 }
 
-const WHATSAPP_NUMBER = "5500000000000";
+const DELIVERY_FEE = 10;
 
 const CheckoutModal = ({
   open,
@@ -30,11 +30,16 @@ const CheckoutModal = ({
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [payment, setPayment] = useState("");
+  const [deliveryMode, setDeliveryMode] = useState<"entrega" | "retirada" | "">("");
+
+  const isDelivery = deliveryMode === "entrega";
+  const finalTotal = isDelivery ? totalPrice + DELIVERY_FEE : totalPrice;
 
   const paymentOptions = ["Pix", "Dinheiro", "Cartão na entrega"];
 
   const handleSendWhatsApp = () => {
-    if (!name.trim() || !address.trim() || !payment) return;
+    if (!name.trim() || !deliveryMode || !payment) return;
+    if (isDelivery && !address.trim()) return;
 
     const itemsText = items
       .map(
@@ -43,14 +48,18 @@ const CheckoutModal = ({
       )
       .join("\n");
 
+    const deliveryText = isDelivery
+      ? `📍 *Endereço:* ${address.trim()}\n🚚 *Modo:* Entrega (+R$ ${DELIVERY_FEE.toFixed(2).replace(".", ",")})`
+      : `🏪 *Modo:* Retirada no local`;
+
     const message = `🍔 *Novo Pedido — Lanches da Cassi*\n\n` +
       `👤 *Nome:* ${name.trim()}\n` +
-      `📍 *Endereço:* ${address.trim()}\n` +
+      `${deliveryText}\n` +
       `💳 *Pagamento:* ${payment}\n\n` +
       `📋 *Itens:*\n${itemsText}\n\n` +
-      `💰 *Total: R$ ${totalPrice.toFixed(2).replace(".", ",")}*`;
+      `💰 *Total: R$ ${finalTotal.toFixed(2).replace(".", ",")}*`;
 
-    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    const url = `https://wa.me/message/ZH2VLQX64DSQO1?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank", "noopener,noreferrer");
 
     onClear();
@@ -58,6 +67,7 @@ const CheckoutModal = ({
     setName("");
     setAddress("");
     setPayment("");
+    setDeliveryMode("");
     onClose();
   };
 
@@ -158,18 +168,52 @@ const CheckoutModal = ({
                   maxLength={100}
                 />
               </div>
+
+              {/* Modo de recebimento */}
               <div>
                 <label className="text-sm font-bold text-foreground mb-1 block">
-                  Endereço de entrega
+                  Como deseja receber?
                 </label>
-                <Input
-                  placeholder="Rua, número, bairro..."
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                  className="rounded-xl"
-                  maxLength={200}
-                />
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => setDeliveryMode("retirada")}
+                    className={`flex-1 py-2.5 px-3 rounded-xl text-sm font-bold transition-all border ${
+                      deliveryMode === "retirada"
+                        ? "bg-primary text-primary-foreground border-primary"
+                        : "bg-muted text-muted-foreground border-transparent hover:bg-accent"
+                    }`}
+                  >
+                    🏪 Retirada
+                  </button>
+                  <button
+                    onClick={() => setDeliveryMode("entrega")}
+                    className={`flex-1 py-2.5 px-3 rounded-xl text-sm font-bold transition-all border ${
+                      deliveryMode === "entrega"
+                        ? "bg-primary text-primary-foreground border-primary"
+                        : "bg-muted text-muted-foreground border-transparent hover:bg-accent"
+                    }`}
+                  >
+                    🚚 Entrega (+R$ 10)
+                  </button>
+                </div>
               </div>
+
+              {isDelivery && (
+                <div>
+                  <label className="text-sm font-bold text-foreground mb-1 block">
+                    Endereço de entrega
+                  </label>
+                  <Input
+                    placeholder="Rua, número, bairro..."
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    className="rounded-xl"
+                    maxLength={200}
+                  />
+                </div>
+              )}
+
+              {/* Pagamento */}
               <div>
                 <label className="text-sm font-bold text-foreground mb-1 block">
                   Forma de pagamento
@@ -192,16 +236,33 @@ const CheckoutModal = ({
               </div>
             </div>
 
-            <div className="flex justify-between items-center pt-2 border-t">
-              <span className="font-bold text-foreground">Total</span>
-              <span className="text-xl font-extrabold text-primary">
-                R$ {totalPrice.toFixed(2).replace(".", ",")}
-              </span>
+            {/* Resumo com taxa */}
+            <div className="pt-2 border-t space-y-1">
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-muted-foreground">Subtotal</span>
+                <span className="font-bold text-foreground">
+                  R$ {totalPrice.toFixed(2).replace(".", ",")}
+                </span>
+              </div>
+              {isDelivery && (
+                <div className="flex justify-between items-center text-sm">
+                  <span className="text-muted-foreground">Taxa de entrega</span>
+                  <span className="font-bold text-foreground">
+                    R$ {DELIVERY_FEE.toFixed(2).replace(".", ",")}
+                  </span>
+                </div>
+              )}
+              <div className="flex justify-between items-center pt-1">
+                <span className="font-bold text-foreground">Total</span>
+                <span className="text-xl font-extrabold text-primary">
+                  R$ {finalTotal.toFixed(2).replace(".", ",")}
+                </span>
+              </div>
             </div>
 
             <Button
               onClick={handleSendWhatsApp}
-              disabled={!name.trim() || !address.trim() || !payment}
+              disabled={!name.trim() || !deliveryMode || !payment || (isDelivery && !address.trim())}
               className="w-full h-12 text-base font-bold rounded-xl gap-2 bg-[hsl(var(--whatsapp))] hover:bg-[hsl(var(--whatsapp))]/90"
             >
               <MessageCircle className="h-5 w-5" />

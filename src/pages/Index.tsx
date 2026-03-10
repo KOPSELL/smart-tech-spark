@@ -21,6 +21,7 @@ const Index = () => {
 
   const filtered = useMemo(() => {
     return menuItems.filter((item) => {
+      if (item.category === "adicionais") return false;
       const matchesCategory = !activeCategory || item.category === activeCategory;
       const matchesSearch =
         !search ||
@@ -29,6 +30,18 @@ const Index = () => {
       return matchesCategory && matchesSearch;
     });
   }, [activeCategory, search]);
+
+  const adicionais = useMemo(() => {
+    return menuItems.filter((item) => item.category === "adicionais");
+  }, []);
+
+  const showAdicionais = !activeCategory || activeCategory === "adicionais";
+  const searchMatchesAdicionais = adicionais.filter(
+    (item) =>
+      !search ||
+      item.name.toLowerCase().includes(search.toLowerCase()) ||
+      item.description.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <div className="relative min-h-screen bg-muted pb-24">
@@ -51,7 +64,22 @@ const Index = () => {
               <ProductCard key={item.id} item={item} onAdd={addItem} />
             ))}
           </div>
-          {filtered.length === 0 && (
+
+          {/* Adicionais separados */}
+          {showAdicionais && searchMatchesAdicionais.length > 0 && (
+            <div className="mt-6">
+              <h2 className="text-lg font-extrabold text-foreground mb-3">
+                ➕ Adicionais
+              </h2>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {searchMatchesAdicionais.map((item) => (
+                  <ProductCard key={item.id} item={item} onAdd={addItem} />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {filtered.length === 0 && searchMatchesAdicionais.length === 0 && (
             <p className="text-center text-muted-foreground py-12">
               Nenhum item encontrado 😕
             </p>

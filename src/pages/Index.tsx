@@ -8,7 +8,7 @@ import ProductCard from "@/components/menu/ProductCard";
 import CartBar from "@/components/menu/CartBar";
 import CheckoutModal from "@/components/menu/CheckoutModal";
 import { menuItems } from "@/data/menuData";
-import { dailyPromos } from "@/data/promoData";
+import { getDailyPromos } from "@/data/promoData";
 import { useCart } from "@/hooks/useCart";
 
 const Index = () => {

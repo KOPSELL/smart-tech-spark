@@ -18,6 +18,7 @@ const Index = () => {
   const { items, addItem, removeItem, clearCart, totalItems, totalPrice } = useCart();
 
   const featured = useMemo(() => menuItems.filter((i) => i.featured), []);
+  const dailyPromos = useMemo(() => getDailyPromos(), []);
 
   const filtered = useMemo(() => {
     return menuItems.filter((item) => {

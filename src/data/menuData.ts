@@ -24,7 +24,7 @@ export const menuItems: MenuItem[] = [
     description: "Pão de xis, maionese caseira, catchup, ervilha, milho, alface, tomate, bife, presunto, ovo",
     price: 18.00,
     category: "xis",
-    image: "https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?w=400&h=300&fit=crop",
+    image: "https://i.ibb.co/fzgj6WTN/Whats-App-Image-2024-09-17-at-11-18-50-1-1.jpg",
   },
   {
     id: "xis-2",
@@ -32,7 +32,7 @@ export const menuItems: MenuItem[] = [
     description: "Pão de xis, maionese caseira, catchup, mostarda, ervilha, milho, alface, tomate, frango desfiado, presunto, ovo",
     price: 20.00,
     category: "xis",
-    image: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=400&h=300&fit=crop",
+    image: "https://i.ibb.co/fzgj6WTN/Whats-App-Image-2024-09-17-at-11-18-50-1-1.jpg",
   },
   {
     id: "xis-3",
@@ -40,7 +40,7 @@ export const menuItems: MenuItem[] = [
     description: "Pão de xis, maionese caseira, catchup, mostarda, ervilha, milho, alface, tomate, calabresa, bacon, ovo",
     price: 22.00,
     category: "xis",
-    image: "https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=400&h=300&fit=crop",
+    image: "https://i.ibb.co/fzgj6WTN/Whats-App-Image-2024-09-17-at-11-18-50-1-1.jpg",
   },
   {
     id: "xis-4",
@@ -48,7 +48,7 @@ export const menuItems: MenuItem[] = [
     description: "Pão de xis, maionese caseira, catchup, ervilha, milho, alface, tomate, bife, bacon, ovo",
     price: 22.00,
     category: "xis",
-    image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop",
+    image: "https://i.ibb.co/fzgj6WTN/Whats-App-Image-2024-09-17-at-11-18-50-1-1.jpg",
     featured: true,
   },
   {
@@ -57,7 +57,7 @@ export const menuItems: MenuItem[] = [
     description: "Pão de xis, maionese caseira, catchup, mostarda, ervilha, milho, alface, tomate, calabresa, bacon, frango desfiado, bife, presunto, queijo, ovo",
     price: 25.00,
     category: "xis",
-    image: "https://images.unsplash.com/photo-1544025162-d76694265947?w=400&h=300&fit=crop",
+    image: "https://i.ibb.co/fzgj6WTN/Whats-App-Image-2024-09-17-at-11-18-50-1-1.jpg",
     featured: true,
   },
   {
@@ -66,7 +66,7 @@ export const menuItems: MenuItem[] = [
     description: "Pão de xis, maionese caseira, catchup, mostarda, ervilha, milho, alface, tomate, strogonoff de frango ou bovino, batata palha, presunto, queijo e ovo",
     price: 25.00,
     category: "xis",
-    image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=300&fit=crop",
+    image: "https://i.ibb.co/fzgj6WTN/Whats-App-Image-2024-09-17-at-11-18-50-1-1.jpg",
     featured: true,
   },
   {
@@ -75,7 +75,7 @@ export const menuItems: MenuItem[] = [
     description: "Bife, calabresa, bacon, frango, presunto, queijo, tomate, alface, milho, ervilha, maionese caseira, catchup, mostarda",
     price: 28.00,
     category: "xis",
-    image: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=400&h=300&fit=crop",
+    image: "https://i.ibb.co/fzgj6WTN/Whats-App-Image-2024-09-17-at-11-18-50-1-1.jpg",
     featured: true,
   },
   {
@@ -84,7 +84,7 @@ export const menuItems: MenuItem[] = [
     description: "Pão de xis, maionese caseira, catchup, mostarda, ervilha, milho, alface, tomate, coração de frango, presunto, queijo e ovo",
     price: 22.00,
     category: "xis",
-    image: "https://images.unsplash.com/photo-1562967914-608f82629710?w=400&h=300&fit=crop",
+    image: "https://i.ibb.co/fzgj6WTN/Whats-App-Image-2024-09-17-at-11-18-50-1-1.jpg",
   },
 
   // Adicionais

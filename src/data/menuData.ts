@@ -14,6 +14,8 @@ export const categories = [
   { id: "dogs", label: "🌭 Dogs" },
   { id: "porcoes", label: "🍟 Porções" },
   { id: "bebidas", label: "🥤 Bebidas" },
+  { id: "picadao", label: "🥘 Picadão" },
+  { id: "alaminuta", label: "🍽️ Alaminuta" },
 ];
 
 export const menuItems: MenuItem[] = [
@@ -201,11 +203,27 @@ export const menuItems: MenuItem[] = [
     image: "https://images.unsplash.com/photo-1581006852262-e4307cf6283a?w=400&h=300&fit=crop",
   },
   {
-    id: "bebida-4",
+id: "bebida-4",
     name: "Cerveja Latão",
     description: "Cerveja latão 473ml",
     price: 7.00,
     category: "bebidas",
     image: "https://images.unsplash.com/photo-1535958636474-b021ee887b13?w=400&h=300&fit=crop",
   },
+  {
+    id: "picadao-1",
+    name: "Picadão Completo",
+    description: "Carne de gado, frango, calabresa, batata frita, polenta e queijo.",
+    price: 45.00,
+    category: "picadao",
+    image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400",
+  },
+  {
+    id: "alaminuta-1",
+    name: "Alaminuta de Gado",
+    description: "Arroz, feijão, bife de gado, ovo e batata frita.",
+    price: 32.00,
+    category: "alaminuta",
+    image: "https://images.unsplash.com/photo-1594000218862-3f5624475408?w=400",
+  }
 ];

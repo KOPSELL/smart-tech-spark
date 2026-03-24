@@ -1,3 +1,9 @@
+export interface Additional {
+  id: string;
+  name: string;
+  price: number;
+}
+
 export interface MenuItem {
   id: string;
   name: string;
@@ -6,11 +12,12 @@ export interface MenuItem {
   category: string;
   image: string;
   featured?: boolean;
+  additionals?: Additional[];
 }
 
 export const categories = [
   { id: "xis", label: "🍔 Xis" },
-  { id: "adicionais", label: "➕ Adicionais" },
+  // ❌ removido "adicionais"
   { id: "dogs", label: "🌭 Dogs" },
   { id: "porcoes", label: "🍟 Porções" },
   { id: "bebidas", label: "🥤 Bebidas" },
@@ -18,8 +25,14 @@ export const categories = [
   { id: "alaminuta", label: "🍽️ Alaminuta" },
 ];
 
+const xisAdditionals: Additional[] = [
+  { id: "add-bife",   name: "Bife Extra",   price: 8.00 },
+  { id: "add-bacon",  name: "Bacon Extra",  price: 7.00 },
+  { id: "add-frango", name: "Frango Extra", price: 6.00 },
+];
+
 export const menuItems: MenuItem[] = [
-  // Xis
+  // ✅ Xis
   {
     id: "xis-1",
     name: "Xis Salada",
@@ -27,6 +40,7 @@ export const menuItems: MenuItem[] = [
     price: 20.00,
     category: "xis",
     image: "https://i.ibb.co/fzgj6WTN/Whats-App-Image-2024-09-17-at-11-18-50-1-1.jpg",
+    additionals: xisAdditionals,
   },
   {
     id: "xis-2",
@@ -35,6 +49,7 @@ export const menuItems: MenuItem[] = [
     price: 20.00,
     category: "xis",
     image: "https://i.ibb.co/r2Np1hYv/x-frango.png",
+    additionals: xisAdditionals,
   },
   {
     id: "xis-3",
@@ -43,6 +58,7 @@ export const menuItems: MenuItem[] = [
     price: 22.00,
     category: "xis",
     image: "https://i.ibb.co/fzgj6WTN/Whats-App-Image-2024-09-17-at-11-18-50-1-1.jpg",
+    additionals: xisAdditionals,
   },
   {
     id: "xis-4",
@@ -52,6 +68,7 @@ export const menuItems: MenuItem[] = [
     category: "xis",
     image: "https://i.ibb.co/fzgj6WTN/Whats-App-Image-2024-09-17-at-11-18-50-1-1.jpg",
     featured: true,
+    additionals: xisAdditionals,
   },
   {
     id: "xis-5",
@@ -61,6 +78,7 @@ export const menuItems: MenuItem[] = [
     category: "xis",
     image: "https://i.ibb.co/27MDCJq5/x-entrevero-e-da-casa.jpg",
     featured: true,
+    additionals: xisAdditionals,
   },
   {
     id: "xis-6",
@@ -70,6 +88,7 @@ export const menuItems: MenuItem[] = [
     category: "xis",
     image: "https://i.ibb.co/fzgj6WTN/Whats-App-Image-2024-09-17-at-11-18-50-1-1.jpg",
     featured: true,
+    additionals: xisAdditionals,
   },
   {
     id: "xis-7",
@@ -79,6 +98,7 @@ export const menuItems: MenuItem[] = [
     category: "xis",
     image: "https://i.ibb.co/27MDCJq5/x-entrevero-e-da-casa.jpg",
     featured: true,
+    additionals: xisAdditionals,
   },
   {
     id: "xis-8",
@@ -87,35 +107,10 @@ export const menuItems: MenuItem[] = [
     price: 22.00,
     category: "xis",
     image: "https://i.ibb.co/vv6rBP4t/x-cora-ao.jpg",
+    additionals: xisAdditionals,
   },
 
-  // Adicionais
-  {
-    id: "add-1",
-    name: "Cebola Caramelizada",
-    description: "Porção extra de cebola caramelizada",
-    price: 2.00,
-    category: "adicionais",
-    image: "https://images.unsplash.com/photo-1580201092675-a0a6a6cafbb1?w=400&h=300&fit=crop",
-  },
-  {
-    id: "add-2",
-    name: "Bife Extra",
-    description: "Porção extra de bife",
-    price: 5.00,
-    category: "adicionais",
-    image: "https://images.unsplash.com/photo-1544025162-d76694265947?w=400&h=300&fit=crop",
-  },
-  {
-    id: "add-3",
-    name: "Ovo Extra",
-    description: "Ovo frito adicional",
-    price: 2.00,
-    category: "adicionais",
-    image: "https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=400&h=300&fit=crop",
-  },
-
-  // Dogs
+  // ✅ Dogs
   {
     id: "dog-1",
     name: "Dog Tradicional",
@@ -142,7 +137,7 @@ export const menuItems: MenuItem[] = [
     image: "https://i.ibb.co/d0CHhH96/images.jpg",
   },
 
-  // Porções
+  // ✅ Porções
   {
     id: "porcao-1",
     name: "Porção de Batata P",
@@ -177,7 +172,7 @@ export const menuItems: MenuItem[] = [
     image: "https://images.unsplash.com/photo-1562967914-608f82629710?w=400&h=300&fit=crop",
   },
 
-  // Bebidas
+  // ✅ Bebidas
   {
     id: "bebida-1",
     name: "Refrigerante Lata",
@@ -210,6 +205,8 @@ export const menuItems: MenuItem[] = [
     category: "bebidas",
     image: "https://i.ibb.co/pr4CcQv7/D-NQ-NP-658608-MLB101283697600-122025-O.webp",
   },
+
+  // ✅ Picadão
   {
     id: "picadao-1",
     name: "Picadão Completo",
@@ -217,14 +214,6 @@ export const menuItems: MenuItem[] = [
     price: 90.00,
     category: "picadao",
     image: "https://i.ibb.co/b5WzzzQB/picadao-p-e-g.jpg",
-  },
-  {
-    id: "alaminuta-1",
-    name: "Alaminuta de Gado",
-    description: "Arroz, feijão, bife de gado, ovo , batata frita , salada.",
-    price: 32.00,
-    category: "alaminuta",
-    image: "https://i.ibb.co/QvN38K6W/alaminuta.jpg",
   },
   {
     id: "picadao-p",
@@ -249,5 +238,15 @@ export const menuItems: MenuItem[] = [
     price: 105.00,
     category: "picadao",
     image: "https://i.ibb.co/YFMjny8N/picadao-peixe.jpg",
-  }
+  },
+
+  // ✅ Alaminuta
+  {
+    id: "alaminuta-1",
+    name: "Alaminuta de Gado",
+    description: "Arroz, feijão, bife de gado, ovo, batata frita, salada.",
+    price: 32.00,
+    category: "alaminuta",
+    image: "https://i.ibb.co/QvN38K6W/alaminuta.jpg",
+  },
 ];

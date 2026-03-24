@@ -1,15 +1,16 @@
 import { useState } from "react";
-import { X } from "lucide-react"; // ✅ removido Plus e Minus que não são usados
+import { X } from "lucide-react";
 import type { MenuItem, Additional } from "@/data/menuData";
 
 interface AdditionalsModalProps {
   item: MenuItem | null;
   onClose: () => void;
-  onConfirm: (item: MenuItem, selectedAdditionals: Additional[]) => void;
+  onConfirm: (item: MenuItem, selectedAdditionals: Additional[], observation: string) => void;
 }
 
 const AdditionalsModal = ({ item, onClose, onConfirm }: AdditionalsModalProps) => {
   const [selected, setSelected] = useState<Additional[]>([]);
+  const [observation, setObservation] = useState("");
 
   if (!item) return null;
 
@@ -25,16 +26,20 @@ const AdditionalsModal = ({ item, onClose, onConfirm }: AdditionalsModalProps) =
   const total = item.price + additionalsTotal;
 
   const handleConfirm = () => {
-    onConfirm(item, selected);
+    onConfirm(item, selected, observation);
     setSelected([]);
+    setObservation("");
     onClose();
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center">
       <div className="absolute inset-0 bg-black/50" onClick={onClose} />
-      <div className="relative w-full max-w-lg bg-background rounded-t-2xl p-5 shadow-xl">
-        
+      
+      {/* ✅ overflow-y-auto e max-h para rolar */}
+      <div className="relative w-full max-w-lg bg-background rounded-t-2xl p-5 shadow-xl overflow-y-auto max-h-[90vh]">
+
+        {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <div>
             <h2 className="text-lg font-extrabold text-foreground">{item.name}</h2>
@@ -48,6 +53,7 @@ const AdditionalsModal = ({ item, onClose, onConfirm }: AdditionalsModalProps) =
           </button>
         </div>
 
+        {/* Adicionais */}
         <div className="flex flex-col gap-3 mb-5">
           {item.additionals?.map((additional) => {
             const isSelected = !!selected.find((a) => a.id === additional.id);
@@ -79,6 +85,21 @@ const AdditionalsModal = ({ item, onClose, onConfirm }: AdditionalsModalProps) =
           })}
         </div>
 
+        {/* Observação */}
+        <div className="mb-5">
+          <label className="text-sm font-bold text-foreground mb-1 block">
+            Observação
+          </label>
+          <textarea
+            value={observation}
+            onChange={(e) => setObservation(e.target.value)}
+            placeholder="Ex: sem cebola, sem tomate, ponto da carne..."
+            className="w-full rounded-xl border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground p-3 resize-none focus:outline-none focus:ring-2 focus:ring-primary"
+            rows={3}
+          />
+        </div>
+
+        {/* Footer */}
         <button
           onClick={handleConfirm}
           className="w-full bg-primary text-primary-foreground rounded-2xl py-4 font-extrabold text-base flex items-center justify-between px-5 shadow-md hover:bg-primary/90 transition-colors active:scale-[0.98]"

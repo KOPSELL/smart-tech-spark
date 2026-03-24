@@ -7,17 +7,17 @@ import FloatingBurgers from "@/components/menu/FloatingBurgers";
 import ProductCard from "@/components/menu/ProductCard";
 import CartBar from "@/components/menu/CartBar";
 import CheckoutModal from "@/components/menu/CheckoutModal";
-import AdditionalsModal from "@/components/menu/AdditionalsModal"; // ✅ novo
+import AdditionalsModal from "@/components/menu/AdditionalsModal";
 import { menuItems } from "@/data/menuData";
 import { getDailyPromos } from "@/data/promoData";
 import { useCart } from "@/hooks/useCart";
-import type { MenuItem, Additional } from "@/data/menuData"; // ✅ novo
+import type { MenuItem, Additional } from "@/data/menuData";
 
 const Index = () => {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [cartOpen, setCartOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null); // ✅ novo
+  const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
   const { items, addItem, removeItem, clearCart, totalItems, totalPrice } = useCart();
 
   const featured = useMemo(() => menuItems.filter((i) => i.featured), []);
@@ -34,18 +34,17 @@ const Index = () => {
     });
   }, [activeCategory, search]);
 
-  // ✅ Abre modal se tiver adicionais, senão adiciona direto
   const handleAdd = (item: MenuItem) => {
     if (item.additionals && item.additionals.length > 0) {
       setSelectedItem(item);
     } else {
-      addItem(item, []);
+      addItem(item, [], "");
     }
   };
 
-  // ✅ Confirma com adicionais selecionados
-  const handleConfirm = (item: MenuItem, selectedAdditionals: Additional[]) => {
-    addItem(item, selectedAdditionals);
+  // ✅ Agora recebe observação também
+  const handleConfirm = (item: MenuItem, selectedAdditionals: Additional[], observation: string) => {
+    addItem(item, selectedAdditionals, observation);
   };
 
   return (
@@ -84,7 +83,6 @@ const Index = () => {
         onOpen={() => setCartOpen(true)}
       />
 
-      {/* ✅ Modal de adicionais */}
       <AdditionalsModal
         item={selectedItem}
         onClose={() => setSelectedItem(null)}

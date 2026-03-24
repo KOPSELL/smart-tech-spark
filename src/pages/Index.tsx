@@ -7,14 +7,17 @@ import FloatingBurgers from "@/components/menu/FloatingBurgers";
 import ProductCard from "@/components/menu/ProductCard";
 import CartBar from "@/components/menu/CartBar";
 import CheckoutModal from "@/components/menu/CheckoutModal";
+import AdditionalsModal from "@/components/menu/AdditionalsModal"; // ✅ novo
 import { menuItems } from "@/data/menuData";
 import { getDailyPromos } from "@/data/promoData";
 import { useCart } from "@/hooks/useCart";
+import type { MenuItem, Additional } from "@/data/menuData"; // ✅ novo
 
 const Index = () => {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [cartOpen, setCartOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null); // ✅ novo
   const { items, addItem, removeItem, clearCart, totalItems, totalPrice } = useCart();
 
   const featured = useMemo(() => menuItems.filter((i) => i.featured), []);
@@ -22,7 +25,6 @@ const Index = () => {
 
   const filtered = useMemo(() => {
     return menuItems.filter((item) => {
-      if (item.category === "adicionais") return false;
       const matchesCategory = !activeCategory || item.category === activeCategory;
       const matchesSearch =
         !search ||
@@ -32,17 +34,19 @@ const Index = () => {
     });
   }, [activeCategory, search]);
 
-  const adicionais = useMemo(() => {
-    return menuItems.filter((item) => item.category === "adicionais");
-  }, []);
+  // ✅ Abre modal se tiver adicionais, senão adiciona direto
+  const handleAdd = (item: MenuItem) => {
+    if (item.additionals && item.additionals.length > 0) {
+      setSelectedItem(item);
+    } else {
+      addItem(item, []);
+    }
+  };
 
-  const showAdicionais = !activeCategory || activeCategory === "adicionais";
-  const searchMatchesAdicionais = adicionais.filter(
-    (item) =>
-      !search ||
-      item.name.toLowerCase().includes(search.toLowerCase()) ||
-      item.description.toLowerCase().includes(search.toLowerCase())
-  );
+  // ✅ Confirma com adicionais selecionados
+  const handleConfirm = (item: MenuItem, selectedAdditionals: Additional[]) => {
+    addItem(item, selectedAdditionals);
+  };
 
   return (
     <div className="relative min-h-screen bg-muted pb-24">
@@ -54,33 +58,19 @@ const Index = () => {
 
         {!search && !activeCategory && (
           <>
-            <PromoSection promos={dailyPromos} onAdd={addItem} />
-            <FeaturedSection items={featured} onAdd={addItem} />
+            <PromoSection promos={dailyPromos} onAdd={handleAdd} />
+            <FeaturedSection items={featured} onAdd={handleAdd} />
           </>
         )}
 
         <main className="container mx-auto px-4 py-4">
           <div className="grid gap-3 sm:grid-cols-2">
             {filtered.map((item) => (
-              <ProductCard key={item.id} item={item} onAdd={addItem} />
+              <ProductCard key={item.id} item={item} onAdd={handleAdd} />
             ))}
           </div>
 
-          {/* Adicionais separados */}
-          {showAdicionais && searchMatchesAdicionais.length > 0 && (
-            <div className="mt-6">
-              <h2 className="text-lg font-extrabold text-foreground mb-3">
-                ➕ Adicionais
-              </h2>
-              <div className="grid gap-3 sm:grid-cols-2">
-                {searchMatchesAdicionais.map((item) => (
-                  <ProductCard key={item.id} item={item} onAdd={addItem} />
-                ))}
-              </div>
-            </div>
-          )}
-
-          {filtered.length === 0 && searchMatchesAdicionais.length === 0 && (
+          {filtered.length === 0 && (
             <p className="text-center text-muted-foreground py-12">
               Nenhum item encontrado 😕
             </p>
@@ -92,6 +82,13 @@ const Index = () => {
         totalItems={totalItems}
         totalPrice={totalPrice}
         onOpen={() => setCartOpen(true)}
+      />
+
+      {/* ✅ Modal de adicionais */}
+      <AdditionalsModal
+        item={selectedItem}
+        onClose={() => setSelectedItem(null)}
+        onConfirm={handleConfirm}
       />
 
       <CheckoutModal

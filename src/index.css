@@ -6,48 +6,44 @@
 
 @layer base {
   :root {
-    --background: 30 30% 97%;
-    --foreground: 20 20% 18%;
+    /* --- CONFIGURAÇÃO TEMA DARK (Lanches da Cassi) --- */
+    --background: 240 10% 4%;        /* Fundo Preto Profundo */
+    --foreground: 0 0% 98%;          /* Texto Branco Gelo */
 
-    --card: 0 0% 100%;
-    --card-foreground: 20 20% 18%;
+    --card: 240 10% 7%;              /* Cards levemente mais claros */
+    --card-foreground: 0 0% 98%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 20 20% 18%;
+    --popover: 240 10% 4%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 24 95% 50%;
+    --primary: 24 95% 53%;           /* Laranja Spark do Logo */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 42 100% 50%;
-    --secondary-foreground: 20 20% 15%;
+    --secondary: 42 100% 50%;        /* Amarelo de destaque para Promos */
+    --secondary-foreground: 20 20% 10%;
 
-    --muted: 30 25% 93%;
-    --muted-foreground: 20 10% 45%;
+    --muted: 240 5% 15%;             /* Cinza escuro para inputs e filtros */
+    --muted-foreground: 240 5% 65%;
 
-    --accent: 24 100% 94%;
-    --accent-foreground: 24 90% 38%;
+    --accent: 24 95% 15%;            /* Efeito de clique Laranja Escuro */
+    --accent-foreground: 24 95% 70%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 30 20% 88%;
-    --input: 30 20% 88%;
-    --ring: 24 95% 50%;
+    --border: 240 5% 15%;            /* Bordas finas e sutis */
+    --input: 240 5% 15%;
+    --ring: 24 95% 53%;
 
     --radius: 0.75rem;
 
-    --whatsapp: 142 70% 40%;
-    --finance-salary: 220 70% 50%;
-    --finance-extra: 160 60% 40%;
-
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --whatsapp: 142 70% 45%;         /* Verde WhatsApp vibrante */
+    
+    /* Cores de suporte para a Sidebar se houver */
+    --sidebar-background: 240 10% 4%;
+    --sidebar-foreground: 240 5% 85%;
+    --sidebar-primary: 24 95% 53%;
+    --sidebar-border: 240 5% 15%;
   }
 }
 

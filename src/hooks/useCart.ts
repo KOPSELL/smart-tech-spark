@@ -14,31 +14,40 @@ export function useCart() {
   const [items, setItems] = useState<CartItem[]>([]);
 
   const addItem = useCallback((item: MenuItem, selectedAdditionals: Additional[] = [], observation: string = "") => {
-    const basePrice = Number(item.price) || 0;
+    // 1. Força a conversão para número para evitar o erro de valor 0 ou NaN
+    const itemPrice = Number(item.price) || 0;
     const safeAdditionals = Array.isArray(selectedAdditionals) ? selectedAdditionals : [];
     const additionalsPrice = safeAdditionals.reduce((sum, a) => sum + (Number(a.price) || 0), 0);
-    
-    const unitPrice = basePrice + additionalsPrice;
+    const unitPrice = itemPrice + additionalsPrice;
 
+    // 2. Gera um ID limpo e padronizado (ID-ADICIONAIS-OBS)
     const additionalsId = safeAdditionals.map((a) => a.id).sort().join("-") || "plain";
-    const cartItemId = `${item.id}-${additionalsId}-${observation}`;
+    const cleanObservation = (observation || "").trim();
+    const cartItemId = `${item.id}-${additionalsId}-${cleanObservation}`;
 
     setItems((prev) => {
-      const existing = prev.find((i) => i.cartItemId === cartItemId);
-      if (existing) {
+      // 3. Procura se esse EXATO item já está no carrinho
+      const existingItem = prev.find((i) => i.cartItemId === cartItemId);
+
+      if (existingItem) {
+        // ✅ SE JÁ EXISTE: Mapeia o array e aumenta a quantidade na mesma linha
         return prev.map((i) =>
-          i.cartItemId === cartItemId ? { ...i, quantity: i.quantity + 1 } : i
+          i.cartItemId === cartItemId 
+            ? { ...i, quantity: i.quantity + 1, totalPrice: unitPrice } 
+            : i
         );
       }
+
+      // 🆕 SE É NOVO: Adiciona como uma nova linha no carrinho
       return [
-        ...prev, 
-        { 
-          cartItemId, 
-          item, 
-          quantity: 1, 
-          selectedAdditionals: safeAdditionals, 
-          observation, 
-          totalPrice: unitPrice 
+        ...prev,
+        {
+          cartItemId,
+          item,
+          quantity: 1,
+          selectedAdditionals: safeAdditionals,
+          observation: cleanObservation,
+          totalPrice: unitPrice
         }
       ];
     });
@@ -58,28 +67,14 @@ export function useCart() {
 
   const clearCart = useCallback(() => setItems([]), []);
 
-  // ✅ CÁLCULO FINAL BLINDADO (Garante que saia do 0)
+  // ✅ Cálculos Finais Blindados (Recalcula tudo baseado nos itens atuais)
   const totalItems = useMemo(() => 
     items.reduce((sum, i) => sum + (Number(i.quantity) || 0), 0), 
   [items]);
 
-  const totalPrice = useMemo(() => {
-    return items.reduce((sum, i) => {
-      // Recalcula o valor unitário garantindo que sejam números
-      const itemPrice = Number(i.item.price) || 0;
-      const addsPrice = i.selectedAdditionals.reduce((s, a) => s + (Number(a.price) || 0), 0);
-      const totalUnit = itemPrice + addsPrice;
-      
-      return sum + (totalUnit * (Number(i.quantity) || 0));
-    }, 0);
-  }, [items]);
+  const totalPrice = useMemo(() => 
+    items.reduce((sum, i) => sum + (Number(i.totalPrice) * Number(i.quantity)), 0), 
+  [items]);
 
-  return { 
-    items, 
-    addItem, 
-    removeItem, 
-    clearCart, 
-    totalItems, 
-    totalPrice 
-  };
+  return { items, addItem, removeItem, clearCart, totalItems, totalPrice };
 }

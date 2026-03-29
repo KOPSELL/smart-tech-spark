@@ -11,8 +11,8 @@ import AdditionalsModal from "@/components/menu/AdditionalsModal";
 import { menuItems } from "@/data/menuData";
 import { getDailyPromos } from "@/data/promoData";
 import { useCart } from "@/hooks/useCart";
-import { useStoreStatus } from "@/hooks/useStoreStatus"; 
-import { Clock, AlertTriangle } from "lucide-react";
+import { useStoreStatus } from "@/hooks/useStoreStatus"; // 🟢 IMPORT CORRIGIDO (S Maiúsculo)
+import { Clock } from "lucide-react"; 
 import type { MenuItem, Additional } from "@/data/menuData";
 
 const Index = () => {
@@ -22,7 +22,7 @@ const Index = () => {
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
   const { items, addItem, removeItem, clearCart, totalItems, totalPrice } = useCart();
   
-  // Hook de Horário (Almoço e Jantar)
+  // 🟢 Lógica de Horário (Pega os dados do seu i5/Servidor)
   const { isOpen, lunchRange, dinnerRange } = useStoreStatus();
 
   const featured = useMemo(() => menuItems.filter((i) => i.featured), []);
@@ -40,10 +40,10 @@ const Index = () => {
   }, [activeCategory, search]);
 
   const handleAdd = (item: MenuItem) => {
-    // Trava de segurança: Se estiver fechado, não deixa adicionar
+    // 🟠 Bloqueio de segurança se a Cassi estiver fechada
     if (!isOpen) {
-      alert("A Lanches da Cassi está fechada no momento!");
-      return;
+      alert("A Lanches da Cassi está fechada agora!");
+      return; 
     }
 
     if (item.additionals && item.additionals.length > 0) {
@@ -59,9 +59,9 @@ const Index = () => {
 
   return (
     <div className="relative min-h-screen bg-muted pb-24">
-      {/* 🔴 FAIXA DE TESTE (Se isso não aparecer, o arquivo não subiu!) */}
-      <div className="bg-red-600 text-white text-[10px] text-center py-1 font-bold z-[100] relative uppercase tracking-widest">
-        Sistema de Horário Ativo: {isOpen ? "ABERTO" : "FECHADO AGORA"}
+      {/* 🔴 FAIXA DE TESTE (Para confirmar que o Build funcionou) */}
+      <div className="bg-red-600 text-white text-[10px] text-center py-1 font-bold z-[100] relative uppercase">
+        DEBUG: {isOpen ? "ABERTO" : "FECHADO AGORA"} | Almoço: {lunchRange}
       </div>
 
       <FloatingBurgers />
@@ -69,15 +69,15 @@ const Index = () => {
       <div className="relative z-10">
         <MenuHeader search={search} onSearchChange={setSearch} />
         
-        {/* 🟠 AVISO PARA O CLIENTE (Só aparece se estiver fora do horário) */}
+        {/* 🟠 AVISO DINÂMICO PARA O CLIENTE */}
         {!isOpen && (
-          <div className="bg-orange-500/20 border-b border-orange-500/30 py-4 px-4 flex flex-col items-center justify-center gap-1 text-orange-500 animate-pulse">
-            <div className="flex items-center gap-2">
-              <Clock size={20} />
-              <span className="text-base font-black uppercase italic">Fechado Agora</span>
+          <div className="bg-orange-500/10 border-b border-orange-500/20 py-4 px-4 flex flex-col items-center justify-center gap-1 text-orange-500 animate-pulse">
+            <div className="flex items-center gap-2 font-bold uppercase italic text-sm">
+              <Clock size={18} />
+              <span>Fechado no momento</span>
             </div>
-            <p className="text-xs font-medium opacity-90">
-              Almoço: {lunchRange} • Jantar: {dinnerRange}
+            <p className="text-[11px] opacity-80">
+              Almoço: {lunchRange} | Jantar: {dinnerRange}
             </p>
           </div>
         )}
@@ -98,7 +98,7 @@ const Index = () => {
                 key={item.id} 
                 item={item} 
                 onAdd={handleAdd} 
-                disabled={!isOpen} // Desativa o botão visualmente
+                disabled={!isOpen} // Desativa o card se fechado
               />
             ))}
           </div>
@@ -111,7 +111,6 @@ const Index = () => {
         </main>
       </div>
 
-      {/* Só mostra a barra se estiver aberto ou se já tiver algo no carrinho */}
       {(isOpen || totalItems > 0) && (
         <CartBar
           totalItems={totalItems}

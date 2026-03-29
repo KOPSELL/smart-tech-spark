@@ -6,9 +6,11 @@ export function useStoreStatus() {
 
   const status = useMemo(() => {
     const now = new Date();
+    // Ajuste de fuso horário se necessário, mas o básico é:
     const currentTime = now.getHours() * 60 + now.getMinutes();
 
     const checkPeriod = (open: string, close: string) => {
+      if (!open || !close) return false;
       const [openH, openM] = open.split(":").map(Number);
       const [closeH, closeM] = close.split(":").map(Number);
       const openTotal = openH * 60 + openM;

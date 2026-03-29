@@ -1,5 +1,6 @@
 import { useMemo } from "react";
-import { storeConfig } from "@/data/config";
+import { useMemo } from "react";
+import { storeConfig } from "../data/config"; // 🟢 Trocamos @/ por ../
 
 export function useStoreStatus() {
   const { lunchOpen, lunchClose, dinnerOpen, dinnerClose } = storeConfig;

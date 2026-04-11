@@ -11,7 +11,7 @@ import AdditionalsModal from "@/components/menu/AdditionalsModal";
 import { menuItems } from "@/data/menuData";
 import { getDailyPromos } from "@/data/promoData";
 import { useCart } from "@/hooks/useCart";
-import { useStoreStatus } from "../hooks/useStoreTime"; // 🟢 CAMINHO RELATIVO PARA DESTRAVAR
+import { useStoreStatus } from "../hooks/useStoreTime"; 
 import { Clock } from "lucide-react"; 
 import type { MenuItem, Additional } from "@/data/menuData";
 
@@ -22,7 +22,6 @@ const Index = () => {
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
   const { items, addItem, removeItem, clearCart, totalItems, totalPrice } = useCart();
   
-  // 🟢 Lógica de Horário vinda do useStoreTime
   const { isOpen, lunchRange, dinnerRange } = useStoreStatus();
 
   const featured = useMemo(() => menuItems.filter((i) => i.featured), []);
@@ -40,9 +39,9 @@ const Index = () => {
   }, [activeCategory, search]);
 
   const handleAdd = (item: MenuItem) => {
-    // 🟠 Trava se estiver fora do horário
+    // 🟠 Mensagem de alerta atualizada com os novos horários
     if (!isOpen) {
-      alert("A Lanches da Cassi está fechada agora! Abrimos às 19:00.");
+      alert(`A Lanches da Cassi está fechada agora!\n\nAtendimento:\nAlmoço: ${lunchRange}\nJantar: ${dinnerRange}`);
       return; 
     }
 
@@ -59,7 +58,6 @@ const Index = () => {
 
   return (
     <div className="relative min-h-screen bg-muted pb-24">
-      {/* 🔴 FAIXA DE DEBUG - Se o site carregar, isso TEM que aparecer */}
       <div className="bg-red-600 text-white text-[10px] text-center py-1 font-bold z-[100] relative uppercase tracking-tighter">
         STATUS ATUAL: {isOpen ? "ABERTO ✅" : "FECHADO ❌"} | ALMOÇO: {lunchRange}
       </div>
@@ -69,7 +67,6 @@ const Index = () => {
       <div className="relative z-10">
         <MenuHeader search={search} onSearchChange={setSearch} />
         
-        {/* 🟠 AVISO DINÂMICO PARA O CLIENTE */}
         {!isOpen && (
           <div className="bg-orange-500/10 border-b border-orange-500/20 py-4 px-4 flex flex-col items-center justify-center gap-1 text-orange-500 animate-pulse">
             <div className="flex items-center gap-2 font-bold uppercase italic text-sm">
@@ -105,7 +102,6 @@ const Index = () => {
         </main>
       </div>
 
-      {/* Só mostra a barra se estiver aberto ou se o carrinho não estiver vazio */}
       {(isOpen || totalItems > 0) && (
         <CartBar
           totalItems={totalItems}

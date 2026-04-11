@@ -17,7 +17,6 @@ export interface MenuItem {
 
 export const categories = [
   { id: "xis", label: "🍔 Xis" },
-  // ❌ removido "adicionais"
   { id: "dogs", label: "🌭 Dogs" },
   { id: "porcoes", label: "🍟 Porções" },
   { id: "bebidas", label: "🥤 Bebidas" },
@@ -29,6 +28,8 @@ const xisAdditionals: Additional[] = [
   { id: "add-bife",   name: "Bife Extra",   price: 8.00 },
   { id: "add-bacon",  name: "Bacon Extra",  price: 7.00 },
   { id: "add-frango", name: "Frango Extra", price: 6.00 },
+  { id: "add-cebola", name: "Cebola",       price: 3.00 },
+  { id: "add-ovo",    name: "Ovo",          price: 2.00 },
 ];
 
 export const menuItems: MenuItem[] = [
@@ -116,6 +117,14 @@ export const menuItems: MenuItem[] = [
     name: "Dog Tradicional",
     description: "Pão de dog, molho especial, maionese caseira, catchup, mostarda, salsicha, tomate, batata palha",
     price: 15.00,
+    category: "dogs",
+    image: "https://i.ibb.co/d0CHhH96/images.jpg",
+  },
+  {
+    id: "dog-duplo",
+    name: "Dog Duplo",
+    description: "Pão de dog, 2 salsichas, molho especial, maionese caseira, catchup, mostarda, tomate e batata palha",
+    price: 18.00,
     category: "dogs",
     image: "https://i.ibb.co/d0CHhH96/images.jpg",
   },

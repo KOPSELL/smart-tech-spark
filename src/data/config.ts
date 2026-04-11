@@ -3,9 +3,9 @@ export const storeConfig = {
   name: "Lanches da Cassi",
   
   // Horários de Funcionamento (Cassi altera aqui no GitHub)
-  lunchOpen: "11:30",
+  lunchOpen: "10:30",
   lunchClose: "13:00",
-  dinnerOpen: "19:00",
+  dinnerOpen: "18:30",
   dinnerClose: "23:00",
   
   whatsapp: "5554991491157",
